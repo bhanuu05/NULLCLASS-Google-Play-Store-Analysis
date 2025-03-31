@@ -1,0 +1,203 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Play Store Analytics Dashboard</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+            transition: background-color 0.5s, color 0.5s;
+            overflow-x: hidden;
+        }
+
+        /* Light Mode */
+        body.light-mode {
+            background-color: white;
+            color: black;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(90deg, #34A853, #0F9D58);
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+
+        .header img {
+            height: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .light-mode .header {
+            background: linear-gradient(90deg, #ffcc00, #ff9900);
+        }
+
+        /* Toggle Mode Button */
+        .toggle-container {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-icon {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .light-mode .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        /* Plot Cards */
+        .plot-card {
+            width: 90%;
+            height: 600px;
+            background: #1E1E1E;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 30px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .light-mode .plot-card {
+            background: #f9f9f9;
+            color: black;
+        }
+
+        .plot-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Disabled Graphs */
+        .disabled {
+            background: #333 !important;
+            cursor: not-allowed;
+            color: #bbb;
+            text-align: centr;
+            font-size: 20px;
+            padding: 50px;
+        }
+
+        .light-mode .disabled {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        /* Plot Titles */
+        .plot-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        /* Embed Graphs */
+        .plot-card embed {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .plot-card {
+                width: 100%;
+                height: 500px;
+            }
+        }
+    </style>
+    <script>
+        function openPlot(filename) {
+            window.open(filename, '_blank');
+        }
+
+        // Toggle Light/Dark Mode
+        function toggleMode() {
+            document.body.classList.toggle("light-mode");
+            let modeIcon = document.getElementById("modeIcon");
+
+            if (document.body.classList.contains("light-mode")) {
+                localStorage.setItem("theme", "light");
+                modeIcon.src = "https://cdn-icons-png.flaticon.com/512/1164/1164954.png"; // Light mode icon
+            } else {
+                localStorage.setItem("theme", "dark");
+                modeIcon.src = "https://cdn-icons-png.flaticon.com/512/747/747374.png"; // Dark mode icon
+            }
+        }
+
+        // Load the theme from localStorage
+        window.onload = function () {
+            if (localStorage.getItem("theme") === "light") {
+                document.body.classList.add("light-mode");
+                document.getElementById("modeIcon").src = "https://cdn-icons-png.flaticon.com/512/1164/1164954.png";
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play Store Logo">
+        Google Play Store Review Analytics
+        <div class="toggle-container" onclick="toggleMode()">
+            <img id="modeIcon" class="toggle-icon" src="https://cdn-icons-png.flaticon.com/512/747/747374.png" alt="Toggle Theme">
+        </div>
+    </div>
+    <div class="container">
+        <!-- Available Graphs -->
+                
+        <div class="plot-card" onclick="openPlot('revenue_installs_paid_apps.html')">
+            <embed src="revenue_installs_paid_apps.html">
+            <p class="plot-title">Revenue vs Installs (Paid Apps)</p>
+        </div>
+
+        <!-- Time-Restricted Graphs -->
+        <div class="plot-card disabled">
+            <p class="plot-title">Dual Axis Chart (Available 1 PM - 2 PM)</p>
+        </div>
+        <div class="plot-card disabled">
+            <p class="plot-title">Grouped Bar Chart (Available 3 PM - 5 PM)</p>
+        </div>
+        <div class="plot-card disabled">
+            <p class="plot-title">Time Series Chart (Available 6 PM - 9 PM)</p>
+        </div>
+        <div class="plot-card disabled">
+            <p class="plot-title">Bubble Chart (Available 5 PM - 7 PM)</p>
+        </div>
+       
+    </div>
+</body>
+</html>
