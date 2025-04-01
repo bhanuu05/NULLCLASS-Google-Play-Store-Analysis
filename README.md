@@ -121,5 +121,8 @@ This project was developed under NullClass Edtech Pvt Ltd as part of the interns
 
 For any queries, feel free to connect via LinkedIn [ https:/www.linkedin.com/in/bhanuu05 ] or email at bhanuusingh.01@gmail.com
 
+🚀 Live Project Link:
+https://playstore-analysis.netlify.app/
+
 
 
